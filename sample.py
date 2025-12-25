@@ -85,5 +85,8 @@ with torch.no_grad():
     with ctx:
         for k in range(num_samples):
             y = model.generate(x, max_new_tokens, temperature=temperature, top_k=top_k)
-            print(decode(y[0].tolist()))
+            decoded = decode(y[0].tolist())
+            if '\n' in decoded:
+                decoded = decoded.split('\n')[0]
+            print(decoded)
             print('---------------')

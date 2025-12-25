@@ -27,9 +27,9 @@ for arg in sys.argv[1:]:
             print(f.read())
         exec(open(config_file).read())
     else:
-        # assume it's a --key=value argument
-        assert arg.startswith('--')
-        key, val = arg.split('=')
+        if not arg.startswith('--'):
+            raise ValueError(f"Argument '{arg}' is not a valid flag. Did you forget '--'?")
+        key, val = arg.split('=', 1)
         key = key[2:]
         if key in globals():
             try:
